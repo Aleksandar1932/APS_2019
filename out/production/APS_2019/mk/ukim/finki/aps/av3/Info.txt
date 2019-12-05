@@ -1,0 +1,2 @@
+1. Brute Force
+2. Greedy Algorithms
