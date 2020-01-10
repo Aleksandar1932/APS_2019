@@ -36,7 +36,7 @@ public class ConsecutiveNumbers {
 }
 
 
-class BNode<E extends Number> {
+ class BNode<E extends Number> {
 
     public E info;
     public BNode<E> left;
