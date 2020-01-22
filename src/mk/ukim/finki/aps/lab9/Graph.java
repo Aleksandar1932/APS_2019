@@ -2,6 +2,7 @@ package mk.ukim.finki.aps.lab9;
 
 //import java.util.Iterator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -50,14 +51,14 @@ public class Graph<E> {
         adjList[x].removeNeighbor(adjList[y]);
     }
 
-    void dfsSearch(int node) {
+    public void dfsSearch(int node) {
         boolean visited[] = new boolean[num_nodes];
         for (int i = 0; i < num_nodes; i++)
             visited[i] = false;
         dfsRecursive(node, visited);
     }
 
-    void dfsRecursive(int node, boolean visited[]) {
+    public void dfsRecursive(int node, boolean visited[]) {
         visited[node] = true;
         System.out.println(node + ": " + adjList[node].getInfo());
 
@@ -68,7 +69,7 @@ public class Graph<E> {
         }
     }
 
-    void dfsNonrecursive(int node) {
+    public void dfsNonrecursive(int node) {
         boolean visited[] = new boolean[num_nodes];
         for (int i = 0; i < num_nodes; i++)
             visited[i] = false;
@@ -97,7 +98,7 @@ public class Graph<E> {
 
     }
 
-    void bfs(int node) {
+    public void bfs(int node) {
         boolean visited[] = new boolean[num_nodes];
         for (int i = 0; i < num_nodes; i++)
             visited[i] = false;
@@ -123,6 +124,38 @@ public class Graph<E> {
 
         }
 
+    }
+
+    public ArrayList<E> bfsToList(int node) {
+        ArrayList<E> returnList = new ArrayList<>();
+
+        boolean visited[] = new boolean[num_nodes];
+        for (int i = 0; i < num_nodes; i++)
+            visited[i] = false;
+        visited[node] = true;
+//        System.out.println(node + ": " + adjList[node].getInfo());
+        returnList.add(adjList[node].getInfo());
+        Queue<Integer> q = new LinkedQueue<Integer>();
+        q.enqueue(node);
+
+        GraphNode<E> pom;
+
+        while (!q.isEmpty()) {
+            pom = adjList[q.dequeue()];
+            GraphNode<E> tmp = null;
+            for (int i = 0; i < pom.getNeighbors().size(); i++) {
+                tmp = pom.getNeighbors().get(i);
+                if (!visited[tmp.getIndex()]) {
+                    visited[tmp.getIndex()] = true;
+                    //System.out.println(tmp.getIndex() + ": " + tmp.getInfo());
+                    returnList.add(tmp.getInfo());
+                    q.enqueue(tmp.getIndex());
+                }
+            }
+
+
+        }
+        return returnList;
     }
 
 

@@ -61,6 +61,31 @@ public class BTree<E> {
 
     }
 
+    public BNode<E> getRoot() {
+        return root;
+    }
+
+    public int findNodeLevel(BNode<E> root, BNode<E> node, int level){
+        // base case
+        if (root == null)
+            return Integer.MIN_VALUE;
+
+        // return level if node is found
+        if (root == node)
+            return level;
+
+        // search node in left subtree
+        int left = findNodeLevel(root.left, node, level + 1);
+
+        // if node is found in left subtree, return
+        if (left != Integer.MIN_VALUE)
+            return left;
+
+        // else continue the search in right subtree
+        return findNodeLevel(root.right, node, level + 1);
+    }
+
+
     public void printPreOrderIterative(BNode<E> root){
         if(root == null){
             return;
